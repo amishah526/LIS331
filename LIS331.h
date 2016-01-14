@@ -11,11 +11,6 @@
  * GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * $Rev: 127 $   
- * $Author: irvined $ 
- * $Date: 2012-04-09 10:20:42 +0200 (Mon, 09 Apr 2012) $  
- *
 */
 
 #ifndef LIS331_h
@@ -78,13 +73,13 @@
 
 class LIS331
 {
-	bool writeReg(byte addr, byte val);
-	bool readReg(byte addr, byte *val);
-	bool getBit(byte b, byte bit);
+	
 	public:
 		LIS331();
-		void begin();
 		int i2cAddress;
+		bool writeReg(byte addr, byte val);
+		bool readReg(byte addr, byte *val);
+		bool getBit(byte b, byte bit);
 		bool statusHasOverrun();
 		bool statusHasZOverrun();
 		bool statusHasYOverrun();
@@ -103,9 +98,9 @@ class LIS331
 		bool setXEnable(bool state);
 		bool setYEnable(bool state);
 		bool setZEnable(bool state);
-		int getXValue();
-		int getZValue();
-		int getYValue();
+		bool getXValue(int16_t *val);
+		bool getZValue(int16_t *val);
+		bool getYValue(int16_t *val);
 };
 
 #endif

@@ -11,11 +11,6 @@
  * GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * $Rev: 127 $   
- * $Author: irvined $ 
- * $Date: 2012-04-09 10:20:42 +0200 (Mon, 09 Apr 2012) $  
- *
 */
 
 #include "LIS331.h"
@@ -26,22 +21,6 @@ LIS331::LIS331(){
 	i2cAddress=25;
 	}
 
-void LIS331::begin(){
-	Wire.begin();
-	byte state=getPowerStatus();
-	if (state==LR_POWER_OFF){
-		setPowerStatus(LR_POWER_NORM);
-	}
-	if (!getXEnable()){
-		setXEnable(true);
-	}	
-	if (!getYEnable()){
-		setYEnable(true);
-	}	
-	if (!getZEnable()){
-		setZEnable(true);
-	}	
-}
 
 bool LIS331::readReg(byte addr, byte *val){
   Wire.beginTransmission(i2cAddress);
@@ -57,7 +36,6 @@ bool LIS331::readReg(byte addr, byte *val){
 		*val=Wire.read();
 		return true;
   }else{
-	Serial.println("FAIL");
     return false;
   }
 }
@@ -272,7 +250,7 @@ bool LIS331::setXEnable(bool state){
 	return false;
 }
 
-int LIS331::getZValue(){
+bool LIS331::getZValue(int16_t *val){
 	byte high;
 	byte low;
 	if (!readReg(LR_OUT_Z_L, &low)){
@@ -281,7 +259,8 @@ int LIS331::getZValue(){
 	if (!readReg(LR_OUT_Z_H, &high)){
 		return false;
 	}
-	return (low|(high << 8));
+	*val=(low|(high << 8));
+	return true;
 }
 
 
@@ -289,7 +268,7 @@ int LIS331::getZValue(){
 	
 
 
-int LIS331::getYValue(){
+bool LIS331::getYValue(int16_t *val){
 	byte high;
 	byte low;
 	if (!readReg(LR_OUT_Y_L, &low)){
@@ -298,15 +277,12 @@ int LIS331::getYValue(){
 	if (!readReg(LR_OUT_Y_H, &high)){
 		return false;
 	}
-	return (low|(high << 8));
+	*val=(low|(high << 8));
+	return true;
 }
 
 
-	
-	
-
-
-int LIS331::getXValue(){
+bool LIS331::getXValue(int16_t *val){
 	byte high;
 	byte low;
 	if (!readReg(LR_OUT_X_L, &low)){
@@ -315,11 +291,6 @@ int LIS331::getXValue(){
 	if (!readReg(LR_OUT_X_H, &high)){
 		return false;
 	}
-	return (low|(high << 8));
+	*val=(low|(high << 8));
+	return true;
 }
-
-
-	
-	
-
-
