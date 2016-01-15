@@ -1,4 +1,6 @@
-arduino-LIS331
-==============
+Arduino library for LIS331
+==========================
 
-LIS331 Triple Axis Accelerometer for Arduino
+This library is based on work carried out by [David Irvine](https://github.com/damellis/lis331).
+
+[SparkFun Triple Axis Accelerometer Breakout](https://www.sparkfun.com/products/10345)
