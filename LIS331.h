@@ -60,6 +60,7 @@
 #define LR_DATA_RATE_100 B00001000
 #define LR_DATA_RATE_400 B00010000
 #define LR_DATA_RATE_1000 B00011000
+#define LR_DATA_RATE_5000 B00111000
 
 
 // Enable and disable channel.
